@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2022-12-07T07:53:59Z","labels":{"owner":"zerok"},"name":"service2","namespace":"default","resourceVersion":"9875","uid":"88c1b78b-cd80-4324-b65b-6459a916175d"},"spec":{"clusterIP":"10.102.18.33","clusterIPs":["10.102.18.33"],"internalTrafficPolicy":"Cluster","ipFamilies":["IPv4"],"ipFamilyPolicy":"SingleStack","ports":[{"port":80,"protocol":"TCP","targetPort":80}],"selector":{"app":"service2","owner":"zerok"},"sessionAffinity":"None","type":"ClusterIP"},"status":{"loadBalancer":{}}}
+  creationTimestamp: "2022-12-07T07:53:59Z"
+  labels:
+    owner: zerok
+  name: service2
+  namespace: default
+  resourceVersion: "11666"
+  uid: 88c1b78b-cd80-4324-b65b-6459a916175d
+spec:
+  clusterIP: 10.102.18.33
+  clusterIPs:
+  - 10.102.18.33
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: service2
+    owner: zerok
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

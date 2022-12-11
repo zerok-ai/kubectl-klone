@@ -1,0 +1,14 @@
+bases:
+  - ../base
+patchesJson6902:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: service2-deployment
+    path: deployment-patch.yaml
+  - target:
+      version: v1
+      kind: Service
+      name: service2
+    path: service-patch.yaml
