@@ -1,0 +1,10 @@
+- op: add
+  path: /spec/ports
+  value: []
+- op: add
+  path: /spec/ports/-
+  value: 
+    name: zerok-debug-port
+    protocol: TCP
+    port: 8080
+    targetPort: 80

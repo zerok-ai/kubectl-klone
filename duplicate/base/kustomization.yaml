@@ -1,0 +1,4 @@
+resources:
+- pod.yaml
+commonLabels:
+  owner: zerok

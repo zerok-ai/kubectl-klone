@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    owner: zerok
+  name: zerok-service
+spec:
+  selector:
+    owner: zerok

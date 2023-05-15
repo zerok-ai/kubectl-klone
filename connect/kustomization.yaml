@@ -1,0 +1,8 @@
+bases:
+  - ./base
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Service
+      name: zerok-service
+    path: service-patch.yaml

@@ -1,0 +1,125 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"creationTimestamp":"2023-05-13T18:00:11Z","generateName":"loadrun-deployment-76d6d5cb68-","labels":{"app":"loadrun","owner":"zerok","pod-template-hash":"76d6d5cb68"},"name":"loadrun-deployment-76d6d5cb68-xhmjk","namespace":"external","ownerReferences":[{"apiVersion":"apps/v1","blockOwnerDeletion":true,"controller":true,"kind":"ReplicaSet","name":"loadrun-deployment-76d6d5cb68","uid":"c0a9f735-7917-4f07-addc-8ab9490693bd"}],"resourceVersion":"31450526","uid":"339e1c14-d271-42fb-8397-b84d0434d63a"},"spec":{"containers":[{"args":["while true; do sleep 1m; curl -ss -w '\n%{http_code} ' http://inventory.sofa-shop.svc.cluster.local/api/inventory/all; done;"],"command":["sh","-c","--"],"image":"alpine/curl","imagePullPolicy":"Always","name":"curl","resources":{"limits":{"cpu":"2","memory":"1Gi"},"requests":{"cpu":"10m","memory":"40Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/var/run/secrets/kubernetes.io/serviceaccount","name":"kube-api-access-4hbs5","readOnly":true}]}],"dnsPolicy":"ClusterFirst","enableServiceLinks":true,"nodeName":"gke-zkdev02-default-pool-ef4179aa-rs01","preemptionPolicy":"PreemptLowerPriority","priority":0,"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"serviceAccount":"default","serviceAccountName":"default","terminationGracePeriodSeconds":30,"tolerations":[{"effect":"NoExecute","key":"node.kubernetes.io/not-ready","operator":"Exists","tolerationSeconds":300},{"effect":"NoExecute","key":"node.kubernetes.io/unreachable","operator":"Exists","tolerationSeconds":300}],"volumes":[{"name":"kube-api-access-4hbs5","projected":{"defaultMode":420,"sources":[{"serviceAccountToken":{"expirationSeconds":3607,"path":"token"}},{"configMap":{"items":[{"key":"ca.crt","path":"ca.crt"}],"name":"kube-root-ca.crt"}},{"downwardAPI":{"items":[{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.namespace"},"path":"namespace"}]}}]}}]},"status":{"conditions":[{"lastProbeTime":null,"lastTransitionTime":"2023-05-15T01:05:02Z","status":"True","type":"Initialized"},{"lastProbeTime":null,"lastTransitionTime":"2023-05-15T01:06:47Z","status":"True","type":"Ready"},{"lastProbeTime":null,"lastTransitionTime":"2023-05-15T01:06:47Z","status":"True","type":"ContainersReady"},{"lastProbeTime":null,"lastTransitionTime":"2023-05-15T01:05:02Z","status":"True","type":"PodScheduled"}],"containerStatuses":[{"containerID":"containerd://bae30b1841bcb69b96497d763e5f3d5415d78a4cfbfb2a7cfe5749d13f06a7d8","image":"docker.io/alpine/curl:latest","imageID":"docker.io/alpine/curl@sha256:81372de8c566f2d731bde924bed45230018e6d7c21d051c15e283eb8e06dfa2d","lastState":{},"name":"curl","ready":true,"restartCount":0,"started":true,"state":{"running":{"startedAt":"2023-05-15T01:06:46Z"}}}],"hostIP":"10.138.0.16","phase":"Running","podIP":"10.64.2.27","podIPs":[{"ip":"10.64.2.27"}],"qosClass":"Burstable","startTime":"2023-05-15T01:05:02Z"}}
+  creationTimestamp: "2023-05-13T18:00:11Z"
+  generateName: loadrun-deployment-76d6d5cb68-
+  labels:
+    app: loadrun
+    owner: zerok
+    pod-template-hash: 76d6d5cb68
+  name: loadrun-deployment-76d6d5cb68-xhmjk
+  namespace: external
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: loadrun-deployment-76d6d5cb68
+    uid: c0a9f735-7917-4f07-addc-8ab9490693bd
+  resourceVersion: "31462571"
+  uid: 339e1c14-d271-42fb-8397-b84d0434d63a
+spec:
+  containers:
+  - args:
+    - |-
+      while true; do sleep 1m; curl -ss -w '
+      %{http_code} ' http://inventory.sofa-shop.svc.cluster.local/api/inventory/all; done;
+    command:
+    - sh
+    - -c
+    - --
+    image: alpine/curl
+    imagePullPolicy: Always
+    name: curl
+    resources:
+      limits:
+        cpu: "2"
+        memory: 1Gi
+      requests:
+        cpu: 10m
+        memory: 40Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-4hbs5
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-zkdev02-default-pool-ef4179aa-rs01
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-4hbs5
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2023-05-15T01:05:02Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2023-05-15T01:06:47Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2023-05-15T01:06:47Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2023-05-15T01:05:02Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://bae30b1841bcb69b96497d763e5f3d5415d78a4cfbfb2a7cfe5749d13f06a7d8
+    image: docker.io/alpine/curl:latest
+    imageID: docker.io/alpine/curl@sha256:81372de8c566f2d731bde924bed45230018e6d7c21d051c15e283eb8e06dfa2d
+    lastState: {}
+    name: curl
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2023-05-15T01:06:46Z"
+  hostIP: 10.138.0.16
+  phase: Running
+  podIP: 10.64.2.27
+  podIPs:
+  - ip: 10.64.2.27
+  qosClass: Burstable
+  startTime: "2023-05-15T01:05:02Z"

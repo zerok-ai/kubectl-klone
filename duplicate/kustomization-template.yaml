@@ -1,0 +1,8 @@
+bases:
+  - ./base
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Pod
+      name: $POD_NAME
+    path: pod-patch.yaml

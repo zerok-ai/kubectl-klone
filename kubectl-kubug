@@ -1,0 +1,164 @@
+#!/bin/bash
+
+# Default values
+namespace="default"
+duplicate_only=false
+inspect=false
+
+# Function to display usage instructions
+usage() {
+    echo "Usage: kubug [command] [options]"
+    echo "Commands:"
+    echo "  duplicate pod <pod-name>"
+    echo "  connect <zk-pod>"
+    echo "  clean"
+    echo "Options:"
+    echo "  -n, --namespace <namespace>    Specify the namespace"
+    echo "  -d, --duplicate-only           Enable duplicate-only mode"
+    exit 1
+}
+
+# Function to handle the "duplicate" command
+handle_duplicate() {
+    if [ -z "$3" ]; then
+        echo "Error: Missing argument for pod name."
+        usage
+    fi
+
+    name=$3
+    type=$2
+    echo "Duplicate command executed:"
+    echo "Name: $name"
+    echo "Type: $type"
+    echo "Namespace: $namespace"
+    echo "Duplicate-only mode: $duplicate_only"
+
+
+    case "$type" in
+        pod)
+            echo "Duplicate pod command executed:"
+            echo "Pod Name: $name"
+
+            kubectl get pod $name -o yaml -n $namespace > duplicate/base/pod.yaml
+            sed -e 's/$POD_NAME/'$name'/g' ./duplicate/kustomization-template.yaml > ./duplicate/kustomization.yaml
+            ;;
+        *)
+            echo "Error: Invalid command type: $command_type"
+            usage
+            ;;
+    esac
+
+    # kubectl apply -f duplicate/ingress.yaml -n $namespace
+    if $inspect; then
+        echo "Inspect mode: true"
+        echo
+        kubectl kustomize duplicate 
+        return 0
+    fi
+
+    kubectl apply -k duplicate -n $namespace
+}
+
+# Function to handle the "connect" command
+handle_connect() {
+    if [ -z "$3" ]; then
+        echo "Error: Missing argument for pod-name."
+        usage
+    fi
+
+    echo "Connect command executed:"
+    echo "Command: connect service"
+    echo "Name: $2"
+
+    targetPort=80
+    port=8080
+
+    sed -e 's/$TARGET_PORT/'$targetPort'/g' -e 's/$PORT/'$port'/g' ./connect/service-patch-template.yaml > ./connect/service-patch.yaml
+
+    if $inspect; then
+        echo "Inspect mode: true"
+        echo
+        kubectl kustomize connect 
+        return 0
+    fi
+
+    kubectl apply -k connect -n $namespace
+    kubectl port-forward svc/zerok-service $port:$port -n $namespace 
+    exit 0
+}
+
+# Function to handle the "clean" command
+handle_clean() {
+    echo "Clean command executed."
+    kubectl delete -k duplicate -n $namespace
+    kubectl delete -k connect -n $namespace
+}
+
+# Parse the command line arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        duplicate)
+            case "$2" in
+                pod)
+                    command="$1 $2"
+                    name="$3"
+                    shift 3
+                    ;;
+                *)
+                    usage
+                    ;;
+            esac
+            ;;
+        connect)
+            case "$2" in
+                service)
+                    command="$1 $2"
+                    name="$3"
+                    shift 3
+                    ;;
+                *)
+                    usage
+                    ;;
+            esac
+            ;;
+        clean)
+            command="clean"
+            shift
+            ;;
+        -n|--namespace)
+            if [ -z "$2" ]; then
+                echo "Error: Missing argument for $1."
+                usage
+            fi
+            namespace="$2"
+            shift 2
+            ;;
+        -d|--duplicate-only)
+            duplicate_only=true
+            shift
+            ;;
+        -i|--inspect)
+            inspect=true
+            shift
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+# Execute the appropriate command handler
+case "$command" in
+    duplicate*)
+        handle_duplicate $command $name
+        ;;
+    connect*)
+        handle_connect $command $name
+        ;;
+    clean)
+        handle_clean
+        ;;
+    *)
+        usage
+        ;;
+esac

@@ -1,0 +1,8 @@
+bases:
+  - ./base
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Pod
+      name: loadrun-deployment-76d6d5cb68-xhmjk
+    path: pod-patch.yaml
