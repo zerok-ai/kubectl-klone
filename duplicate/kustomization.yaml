@@ -4,5 +4,5 @@ patchesJson6902:
   - target:
       version: v1
       kind: Pod
-      name: loadrun-deployment-76d6d5cb68-xhmjk
+      name: loadrun-deployment-d48f8fdcb-x5bmc
     path: pod-patch.yaml

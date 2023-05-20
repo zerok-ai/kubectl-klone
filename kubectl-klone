@@ -7,10 +7,10 @@ inspect=false
 
 # Function to display usage instructions
 usage() {
-    echo "Usage: kubug [command] [options]"
+    echo "Usage: klone [command] [options]"
     echo "Commands:"
     echo "  duplicate pod <pod-name>"
-    echo "  connect <zk-pod>"
+    echo "  connect <duplicate-pod-name>"
     echo "  clean"
     echo "Options:"
     echo "  -n, --namespace <namespace>    Specify the namespace"
@@ -71,9 +71,11 @@ handle_connect() {
     echo "Name: $2"
 
     targetPort=80
+    debugPort=30001
     port=8080
 
     sed -e 's/$TARGET_PORT/'$targetPort'/g' -e 's/$PORT/'$port'/g' ./connect/service-patch-template.yaml > ./connect/service-patch.yaml
+    sed -e 's/$DEBUG_PORT/'$debugPort'/g' ./connect/debug-service-patch-template.yaml > ./connect/debug-service-patch.yaml
 
     if $inspect; then
         echo "Inspect mode: true"
@@ -83,7 +85,14 @@ handle_connect() {
     fi
 
     kubectl apply -k connect -n $namespace
-    kubectl port-forward svc/zerok-service $port:$port -n $namespace 
+
+    echo "Setting up ports:"
+    echo "    TCP port: $port"
+    echo "    Debug port: $debugPort"
+    kubectl port-forward svc/klone-service $port:$port -n $namespace & \
+    kubectl port-forward svc/debug-klone-service $debugPort:$debugPort -n $namespace &
+
+    echo "Closed ports! exiting"
     exit 0
 }
 

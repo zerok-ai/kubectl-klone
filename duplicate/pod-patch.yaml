@@ -3,12 +3,9 @@
   value: 1
 - op: replace
   path: /metadata/name
-  value: zerok-pod
+  value: klone-pod
 - op: remove
   path: /metadata/ownerReferences
-  value: 1
-- op: remove
-  path: /metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration
   value: 1
 - op: remove
   path: /metadata/generateName
@@ -28,7 +25,7 @@
   value: {}
 - op: add
   path: /metadata/labels/owner
-  value: zerok
+  value: klone
 - op: add
   path: /metadata/labels/mirror-of
   value: original-pod-name

@@ -4,7 +4,7 @@
 - op: add
   path: /spec/ports/-
   value: 
-    name: klone-tcp-port
+    name: klone-debug-port
     protocol: TCP
-    port: $PORT
-    targetPort: $TARGET_PORT
+    port: 30001
+    targetPort: 30001

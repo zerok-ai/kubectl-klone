@@ -1,1 +1,3 @@
 ./duplicate/base/pod.yaml
+./connect/base/debug-service-patch.yaml
+./connect/base/service-patch.yaml

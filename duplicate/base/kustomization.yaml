@@ -1,4 +1,4 @@
 resources:
 - pod.yaml
 commonLabels:
-  owner: zerok
+  owner: klone

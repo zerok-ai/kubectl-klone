@@ -6,8 +6,8 @@ service=$2
 ns=$3
 
 if [ $action = 'delete' ]; then 
-    kubectl delete service zerok-target
-    kubectl delete deployment zerok-target
+    kubectl delete service klone-target
+    kubectl delete deployment klone-target
     exit 0
 fi
 

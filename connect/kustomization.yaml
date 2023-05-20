@@ -4,5 +4,10 @@ patchesJson6902:
   - target:
       version: v1
       kind: Service
-      name: zerok-service
+      name: klone-service
     path: service-patch.yaml
+  - target:
+      version: v1
+      kind: Service
+      name: debug-klone-service
+    path: debug-service-patch.yaml

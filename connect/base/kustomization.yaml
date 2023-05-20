@@ -1,4 +1,5 @@
 resources:
 - service.yaml
+- debug-service.yaml
 commonLabels:
-  owner: zerok
+  owner: klone
