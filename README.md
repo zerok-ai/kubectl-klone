@@ -1,5 +1,16 @@
 # kubectl-klone
-Kubernetes scripts to replicate a deployment pod, with independent ingress attached to it. 
+Klone is a tool that creates a replica of any Kubernetes pod in the same environment as the original
+The replica retains the following characteristics of the original
+- Egress connections
+- Resourcing
+- Configurations
+- Flags
+
+Differences from the original pod
+- Klone creates a separate port forward tunnel to the ingress of the replica. The replica can only be accessed through this tunnel.
+- The port forward tunnels can be used to send a request to this duplicate pod (using Curl/ Postman) or to connect to the pod directly from IDE and debug remotely
+
+Klone is language-agnostic
 
 ## About
 kubectl klone extension helps create an isolated pod for a deployment.
