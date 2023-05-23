@@ -1,5 +1,6 @@
 # kubectl-klone
-Klone is a tool that creates a replica of any Kubernetes pod in the same environment as the original
+Klone is a tool that creates a replica of any Kubernetes pod in the same environment as the original.
+
 The replica retains the following characteristics of the original
 - Egress connections
 - Resourcing
@@ -19,7 +20,12 @@ Newly created pod has a new service and ingress path created for it. The egress 
 ## How To
 ### Install
 
-TODO: add installation instructions. 
+Run following commands in your terminal to install Klone:
+```
+git clone git@github.com:zerok-ai/kubectl-klone.git
+cd kubectl-klone
+export PATH=$PATH:$(pwd)
+```
 
 #### Confirming installation
 ```
@@ -28,7 +34,7 @@ sh$ kubectl klone
 
 ![Confirm installation](resources/installation.png)
 
-
+## Klone Commands
 ### Duplicate a pod
 ```
 sh$ kubectl klone duplicate pod <pod-name> -n external
